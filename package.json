@@ -1,0 +1,39 @@
+{
+  "name": "use-pagination",
+  "version": "1.0.0",
+  "description": "use-pagination library provide a helpful react hook for implementing pagination",
+  "main": "index.js",
+  "dependencies": {
+    "react": "^16.13.1"
+  },
+  "devDependencies": {
+    "@types/react": "^16.9.35",
+    "prettier": "^2.0.5",
+    "tslint": "^6.1.2",
+    "tslint-config-prettier": "^1.18.0",
+    "typescript": "^3.9.3"
+  },
+  "scripts": {
+    "format": "prettier --write \"src/**/*.ts\"",
+    "lint": "tslint -p tsconfig.json",
+    "build": "tsc"
+  },
+  "files": [
+    "lib/**/*"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/amazzalel-habib/use-pagination.git"
+  },
+  "keywords": [
+    "react",
+    "pagination",
+    "hook"
+  ],
+  "author": "AMAZZAL EL-HABIB amazzal.elhabib@gmail.com (https://el-habib.me)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/amazzalel-habib/use-pagination/issues"
+  },
+  "homepage": "https://github.com/amazzalel-habib/use-pagination#readme"
+}
