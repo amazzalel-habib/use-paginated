@@ -1,8 +1,8 @@
 {
   "name": "use-paginated",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "description": "use-paginated library provide a helpful react hook for implementing pagination",
-  "main": "index.js",
+  "main": "lib/index.js",
   "devDependencies": {
     "@testing-library/react-hooks": "^3.3.0",
     "@types/jest": "^25.2.3",
@@ -32,7 +32,8 @@
     "postversion": "git push && git push --tags"
   },
   "files": [
-    "lib/**/*"
+    "lib/",
+    "index.js"
   ],
   "repository": {
     "type": "git",
