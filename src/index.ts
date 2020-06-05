@@ -1,4 +1,9 @@
-import usePagination, { UsePaginationStatus, UsePaginationResposne, UsePaginationProps } from './usePagination';
+import usePagination, {
+  UsePaginationStatus,
+  FetchPageResposne,
+  UsePaginationOptions,
+  UsePaginationProps,
+} from './usePagination';
 
-export { UsePaginationProps, UsePaginationResposne, UsePaginationStatus };
+export { UsePaginationProps, FetchPageResposne, UsePaginationOptions, UsePaginationStatus };
 export default usePagination;

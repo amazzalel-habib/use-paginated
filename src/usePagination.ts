@@ -1,60 +1,98 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useReducer } from 'react';
+import { changeMaxPerPageAction, changePageAction, loadPageSuccessAction, loadPageFailureAction } from './actions';
+import usePaginationReducer, { PaginationReducerType } from './reducer';
+import { shouldFetchPage } from './utils';
 
 export enum UsePaginationStatus {
-  LOADING,
-  FAILLED,
-  SUCCESS,
+  LOADING = 'LOADING',
+  FAILLED = 'FAILLED',
+  SUCCESS = 'SUCCESS',
 }
 
 export interface UsePaginationProps<T> {
   currentPage: number;
-  status: UsePaginationStatus;
+  loadingStatus: UsePaginationStatus;
+  loadingStatusMessage?: string;
   changePage: (page: number) => void;
   currentPageItems: T[];
   changeMaxPage: (maxPage: number) => void;
-  maxPage: number;
+  maxPerPage: number;
   totalCount: number;
+  totalPages: number;
 }
-
-export interface UsePaginationResposne<T> {
+export interface PagesStateType<T> {
+  totalCount: number;
+  content: { [page: number]: T[] };
+  loadingStatus: UsePaginationStatus;
+  loadingStatusMessage?: string;
+  currentPage: number;
+  maxPerPage: number;
+  caching: boolean;
+}
+export interface FetchPageResposne<T> {
   pageItems: T[];
   totalCount: number;
 }
-
-export default function usePagination<T>(
-  fetchPage: (page: number, maxPerPage: number) => Promise<UsePaginationResposne<T>> | UsePaginationResposne<T>,
-  maxPage: number = 10,
-  defaultPage: number = 0,
-  cache: boolean = true,
-): UsePaginationProps<T> {
-  const [currentPage, setCurrentPage] = useState(defaultPage);
-  const [totalCount, setTotalCount] = useState(0);
-  const [maxPerPage, setMaxPerPage] = useState(maxPage);
-  const [pages, setPages] = useState<{ [page: number]: T[] }>({});
+export interface UsePaginationOptions<T> {
+  fetchPage: (page: number, maxPerPage: number) => Promise<FetchPageResposne<T>> | FetchPageResposne<T>;
+  maxPerPage?: number;
+  caching?: boolean;
+  defaultPage?: number;
+}
+export default function usePagination<T>({
+  fetchPage,
+  maxPerPage = 10,
+  caching = true,
+  defaultPage = 0,
+}: UsePaginationOptions<T>): UsePaginationProps<T> {
+  const defaultState: PagesStateType<T> = {
+    totalCount: 0,
+    content: {},
+    loadingStatus: UsePaginationStatus.LOADING,
+    loadingStatusMessage: 'Loading',
+    currentPage: defaultPage,
+    maxPerPage,
+    caching,
+  };
+  const [state, dispatch] = useReducer<PaginationReducerType<T>>(usePaginationReducer, defaultState);
+  const currentPage = state.currentPage;
+  const currentPageContent = state.content[currentPage];
+  const currentLoadingStatus: UsePaginationStatus = state.loadingStatus;
   const changePage = (page: number) => {
-    setCurrentPage(page);
+    dispatch(changePageAction(page));
   };
-  const changeMaxPage = (_newMaxPage: number) => {
-    setMaxPerPage(_newMaxPage);
+  const changeMaxPage = (_maxPerPage: number) => {
+    dispatch(changeMaxPerPageAction(_maxPerPage));
   };
+
   useEffect(() => {
-    if (cache && !pages[currentPage]) {
-      Promise.resolve(fetchPage(currentPage, maxPerPage)).then((response: UsePaginationResposne<T>) => {
-        setPages((_pages) => {
-          _pages[currentPage] = response.pageItems;
-          return _pages;
-        });
-        setTotalCount(response.totalCount);
-      });
+    // If caching data is not disactivated or activated but current page is not yet fetched
+    // go and fetch it
+    if (shouldFetchPage(caching, currentPageContent, currentLoadingStatus)) {
+      (async () => {
+        try {
+          const response: FetchPageResposne<T> = await fetchPage(currentPage, maxPerPage);
+          dispatch(loadPageSuccessAction(response.pageItems, response.totalCount));
+        } catch (error) {
+          dispatch(loadPageFailureAction(error));
+        }
+      })();
     }
-  }, [cache, pages, currentPage, setTotalCount, setPages, fetchPage]);
+  }, [caching, currentPage, currentPageContent, currentLoadingStatus, fetchPage]);
+
+  let totalPages = 0; 
+  if(state.maxPerPage > 0 ){
+    totalPages = Math.ceil(state.totalCount / state.maxPerPage);
+  }
   return {
-    totalCount,
-    currentPage,
-    maxPage: maxPerPage,
-    currentPageItems: pages[currentPage],
-    status: UsePaginationStatus.SUCCESS,
+    totalCount: state.totalCount,
+    currentPage: state.currentPage,
+    maxPerPage: state.maxPerPage,
+    currentPageItems: currentPageContent ? currentPageContent : [],
+    loadingStatus: state.loadingStatus,
+    loadingStatusMessage: state.loadingStatusMessage,
     changePage,
     changeMaxPage,
+    totalPages
   };
 }
