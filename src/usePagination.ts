@@ -66,7 +66,7 @@ export default function usePagination<T>({
   }
 
   const changePage = (page: number) => {
-    dispatch(changePageAction(page));
+    if (page <= totalPages && page >= 1) dispatch(changePageAction(page));
   };
   const changeMaxPerPage = (_maxPerPage: number) => {
     dispatch(changeMaxPerPageAction(_maxPerPage));
