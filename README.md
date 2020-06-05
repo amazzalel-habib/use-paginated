@@ -1,6 +1,6 @@
 # use-paginator
 
-![npm](https://img.shields.io/npm/v/use-paginator)
+[![npm](https://img.shields.io/npm/v/use-paginator)](https://www.npmjs.com/package/use-paginator)
 [![Build Status](https://travis-ci.org/amazzalel-habib/use-paginator.svg?branch=master)](https://travis-ci.org/amazzalel-habib/use-paginator)
 [![Coverage Status](https://coveralls.io/repos/github/amazzalel-habib/use-paginator/badge.svg?branch=master)](https://coveralls.io/github/amazzalel-habib/use-paginator?branch=master)
 
