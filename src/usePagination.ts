@@ -17,7 +17,7 @@ export interface UsePaginationProps<T> {
   nextPage: () => void;
   previousPage: () => void;
   currentPageItems: T[];
-  changeMaxPage: (maxPage: number) => void;
+  changeMaxPerPage: (maxPage: number) => void;
   maxPerPage: number;
   totalCount: number;
   totalPages: number;
@@ -68,8 +68,9 @@ export default function usePagination<T>({
   const changePage = (page: number) => {
     dispatch(changePageAction(page));
   };
-  const changeMaxPage = (_maxPerPage: number) => {
+  const changeMaxPerPage = (_maxPerPage: number) => {
     dispatch(changeMaxPerPageAction(_maxPerPage));
+    changePage(currentPage);
   };
   const nextPage = () => {
     if (currentPage + 1 <= totalPages) changePage(currentPage + 1);
@@ -102,7 +103,7 @@ export default function usePagination<T>({
     changePage,
     nextPage,
     previousPage,
-    changeMaxPage,
+    changeMaxPerPage,
     totalPages,
   };
 }

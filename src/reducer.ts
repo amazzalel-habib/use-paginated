@@ -34,6 +34,7 @@ export default function usePaginationReducer<T>(
     case CHANGE_MAX_PER_PAGE:
       return {
         ...state,
+        content: {},
         maxPerPage: action.maxPerPage,
       };
     case LOAD_PAGE_SUCCESS:
