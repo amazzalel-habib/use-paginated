@@ -91,6 +91,7 @@ describe('use-pagination', () => {
     expect(hooks.maxPerPage).toBe(2);
     expect(hooks.currentPage).toBe(2);
     expect(hooks.totalCount).toBe(5);
+    expect(hooks.totalPages).toBe(3);
     expect(hooks.loadingStatus).toBe(UsePaginationStatus.SUCCESS);
     expect(hooks.loadingStatusMessage).toBe('Loaded');
   });
@@ -154,5 +155,89 @@ describe('use-pagination', () => {
       await renderHookResult.waitForNextUpdate();
     });
     expect(mockPageFetched).toBeCalledTimes(4);
+  });
+
+  it('should reload a page when changing max per page', async () => {
+    const renderHookResult = renderHook<{}, UsePaginationProps<T>>(() =>
+      usePagination<T>({
+        fetchPage: mockPageFetched,
+        defaultPage: 1,
+        caching: true,
+        maxPerPage: 2,
+      }),
+    );
+    let hooks = renderHookResult.result.current;
+    await act(async () => {
+      await renderHookResult.waitForNextUpdate();
+    });
+    await act(async () => {
+      hooks = renderHookResult.result.current;
+      hooks.nextPage();
+      await renderHookResult.waitForNextUpdate();
+    });
+    await act(async () => {
+      hooks = renderHookResult.result.current;
+      hooks.changeMaxPerPage(3);
+      await renderHookResult.waitForNextUpdate();
+    });
+    expect(mockPageFetched).toBeCalledTimes(3);
+  });
+  it('should return error when loading a page fails', async () => {
+    const faillingFetcher = jest.fn(() => Promise.reject('Some error'));
+    const renderHookResult = renderHook<{}, UsePaginationProps<T>>(() =>
+      usePagination<T>({
+        fetchPage: faillingFetcher,
+        caching: false,
+      }),
+    );
+    await act(async () => {
+      await renderHookResult.waitForNextUpdate({
+        suppressErrors: false,
+      });
+      const hooks = renderHookResult.result.current;
+      expect(faillingFetcher).toBeCalledTimes(1);
+      expect(hooks.loadingStatus).toBe(UsePaginationStatus.FAILLED);
+    });
+  });
+
+  it('should not change if trying to change to unexisting page', async () => {
+    const renderHookResult = renderHook<{}, UsePaginationProps<T>>(() =>
+      usePagination<T>({
+        fetchPage: mockPageFetched,
+        defaultPage: 1,
+        caching: false,
+        maxPerPage: 5,
+      }),
+    );
+    let hooks = renderHookResult.result.current;
+    await act(async () => {
+      hooks.changePage(4);
+      await renderHookResult.waitForNextUpdate();
+      hooks = renderHookResult.result.current;
+      expect(hooks.currentPage).toBe(1);
+    });
+    await act(async () => {
+      hooks = renderHookResult.result.current;
+      hooks.previousPage();
+      hooks = renderHookResult.result.current;
+      expect(hooks.currentPage).toBe(1);
+      hooks.nextPage();
+      hooks = renderHookResult.result.current;
+      expect(hooks.currentPage).toBe(1);
+    });
+  });
+  it('should return 0 pages when maxPerPage is 0', async () => {
+    const renderHookResult = renderHook<{}, UsePaginationProps<T>>(() =>
+      usePagination<T>({
+        fetchPage: mockPageFetched,
+        maxPerPage: 0
+      }),
+    );
+    let hooks = renderHookResult.result.current;
+    await act(async () => {
+      await renderHookResult.waitForNextUpdate();
+      hooks = renderHookResult.result.current;
+      expect(hooks.totalPages).toBe(0);
+    });
   });
 });

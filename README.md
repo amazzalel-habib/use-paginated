@@ -4,7 +4,12 @@
 [![Build Status](https://travis-ci.org/amazzalel-habib/use-paginated.svg?branch=master)](https://travis-ci.org/amazzalel-habib/use-paginated)
 [![Coverage Status](https://coveralls.io/repos/github/amazzalel-habib/use-paginated/badge.svg)](https://coveralls.io/github/amazzalel-habib/use-paginated)
 
-use-paginated library provide a helpful react hook for implementing pagination.
+**use-paginated** library provides a helpful react hook for implementing pagination logic in [React](https://reactjs.org/).  
+
+This is not a *UI* component, if you want a library for rendering a UI pagination bar you can think of [react-js-pagination
+](https://www.npmjs.com/package/react-js-pagination) which by the way can be used easily with **use-paginated** library.
+
+This library uses React hooks and local state, so any loaded pages data will be stored localy in the componenet. In the upcoming versions of this library we may add support for storing the data in a redux store...
 
 ## Install
 
@@ -25,13 +30,13 @@ interface UsePaginationOptions<T> {
 }
 ```
 
-`maxPerPage`: is the number of items per page, you can change it with `changeMaxPerPage`.  
+`maxPerPage`: is the number of items per page, you can change it using `changeMaxPerPage`.  
 
-`caching`: default to `true`, to disable or enable caching of the pages, to optimize number of fething requests.  
+`caching`: default to `true`, to disable or enable caching of loaded data in order to optimize the number of fething requests.  
 
-`defaultPage`: default to 1, is the default page to load in when the component mount.
+`defaultPage`: default to 1, is the default page to load when the component mounts.
 
-`fetchPage`: is a function that should load the data (from source ...) it should return an object of type `FetchPageResposne<T>` containing the page items and the total number of elements.
+`fetchPage`: is a function that should load the data (from a source...) it should return a promise or simple object of type `FetchPageResposne<T>` containing the page items and the total number of elements.
 
 ```typescript
 interface FetchPageResposne<T> {
@@ -133,3 +138,7 @@ function App() {
 export default App;
 
 ```
+
+## Feedback
+
+If you have any feedback or interested in imporving this library, please send a PR or post an issue.
