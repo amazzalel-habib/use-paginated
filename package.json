@@ -1,7 +1,7 @@
 {
-  "name": "use-paginator",
+  "name": "use-paginated",
   "version": "1.0.0",
-  "description": "use-paginator library provide a helpful react hook for implementing pagination",
+  "description": "use-paginated library provide a helpful react hook for implementing pagination",
   "main": "index.js",
   "devDependencies": {
     "@testing-library/react-hooks": "^3.3.0",
@@ -36,7 +36,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/amazzalel-habib/use-paginator.git"
+    "url": "git+https://github.com/amazzalel-habib/use-paginated.git"
   },
   "keywords": [
     "react",
@@ -47,7 +47,7 @@
   "author": "AMAZZAL EL-HABIB amazzal.elhabib@gmail.com (https://el-habib.me)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/amazzalel-habib/use-paginator/issues"
+    "url": "https://github.com/amazzalel-habib/use-paginated/issues"
   },
-  "homepage": "https://github.com/amazzalel-habib/use-paginator#readme"
+  "homepage": "https://github.com/amazzalel-habib/use-paginated#readme"
 }

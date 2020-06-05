@@ -1,14 +1,14 @@
-# use-paginator
+# use-paginated
 
-[![npm](https://img.shields.io/npm/v/use-paginator)](https://www.npmjs.com/package/use-paginator)
-[![Build Status](https://travis-ci.org/amazzalel-habib/use-paginator.svg?branch=master)](https://travis-ci.org/amazzalel-habib/use-paginator)
-[![Coverage Status](https://coveralls.io/repos/github/amazzalel-habib/use-paginator/badge.svg?branch=master)](https://coveralls.io/github/amazzalel-habib/use-paginator?branch=master)
+[![npm](https://img.shields.io/npm/v/use-paginated)](https://www.npmjs.com/package/use-paginated)
+[![Build Status](https://travis-ci.org/amazzalel-habib/use-paginated.svg?branch=master)](https://travis-ci.org/amazzalel-habib/use-paginated)
+[![Coverage Status](https://coveralls.io/repos/github/amazzalel-habib/use-paginated/badge.svg?branch=master)](https://coveralls.io/github/amazzalel-habib/use-paginated?branch=master)
 
-use-paginator library provide a helpful react hook for implementing pagination.
+use-paginated library provide a helpful react hook for implementing pagination.
 
 ## Install
 
-`npm install --save use-paginator`
+`npm install --save use-paginated`
 
 ## Usage
 
@@ -57,7 +57,7 @@ interface UsePaginationProps<T> {
 
 ```typescript
 import React, { useState } from "react";
-import usePagination, { FetchPageResposne } from "use-paginator";
+import usePagination, { FetchPageResposne } from "use-paginated";
 
 type User = {
   id: number;
