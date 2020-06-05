@@ -1,7 +1,7 @@
 {
-  "name": "use-pagination",
+  "name": "use-paginated",
   "version": "1.0.0",
-  "description": "use-pagination library provide a helpful react hook for implementing pagination",
+  "description": "use-paginated library provide a helpful react hook for implementing pagination",
   "main": "index.js",
   "devDependencies": {
     "@testing-library/react-hooks": "^3.3.0",
@@ -25,7 +25,7 @@
     "build": "tsc",
     "test": "jest --config jestconfig.json",
     "prepare" : "npm run build",
-    "prepublishOnly" : "npm test && npyam run lint",
+    "prepublishOnly" : "npm test && npm run lint",
     "preversion" : "npm run lint",
     "version" : "npm run format && git add -A src",
     "postversion" : "git push && git push --tags"
@@ -35,7 +35,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/amazzalel-habib/use-pagination.git"
+    "url": "git+https://github.com/amazzalel-habib/use-paginated.git"
   },
   "keywords": [
     "react",
@@ -45,7 +45,7 @@
   "author": "AMAZZAL EL-HABIB amazzal.elhabib@gmail.com (https://el-habib.me)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/amazzalel-habib/use-pagination/issues"
+    "url": "https://github.com/amazzalel-habib/use-paginated/issues"
   },
-  "homepage": "https://github.com/amazzalel-habib/use-pagination#readme"
+  "homepage": "https://github.com/amazzalel-habib/use-paginated#readme"
 }
