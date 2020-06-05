@@ -14,6 +14,8 @@ export interface UsePaginationProps<T> {
   loadingStatus: UsePaginationStatus;
   loadingStatusMessage?: string;
   changePage: (page: number) => void;
+  nextPage: () => void;
+  previousPage: () => void;
   currentPageItems: T[];
   changeMaxPage: (maxPage: number) => void;
   maxPerPage: number;
@@ -43,7 +45,7 @@ export default function usePagination<T>({
   fetchPage,
   maxPerPage = 10,
   caching = true,
-  defaultPage = 0,
+  defaultPage = 1,
 }: UsePaginationOptions<T>): UsePaginationProps<T> {
   const defaultState: PagesStateType<T> = {
     totalCount: 0,
@@ -58,13 +60,23 @@ export default function usePagination<T>({
   const currentPage = state.currentPage;
   const currentPageContent = state.content[currentPage];
   const currentLoadingStatus: UsePaginationStatus = state.loadingStatus;
+  let totalPages = 0;
+  if (state.maxPerPage > 0) {
+    totalPages = Math.ceil(state.totalCount / state.maxPerPage);
+  }
+
   const changePage = (page: number) => {
     dispatch(changePageAction(page));
   };
   const changeMaxPage = (_maxPerPage: number) => {
     dispatch(changeMaxPerPageAction(_maxPerPage));
   };
-
+  const nextPage = () => {
+    if (currentPage + 1 <= totalPages) changePage(currentPage + 1);
+  };
+  const previousPage = () => {
+    if (currentPage > 1) changePage(currentPage - 1);
+  };
   useEffect(() => {
     // If caching data is not disactivated or activated but current page is not yet fetched
     // go and fetch it
@@ -80,10 +92,6 @@ export default function usePagination<T>({
     }
   }, [caching, currentPage, currentPageContent, currentLoadingStatus, fetchPage]);
 
-  let totalPages = 0; 
-  if(state.maxPerPage > 0 ){
-    totalPages = Math.ceil(state.totalCount / state.maxPerPage);
-  }
   return {
     totalCount: state.totalCount,
     currentPage: state.currentPage,
@@ -92,7 +100,9 @@ export default function usePagination<T>({
     loadingStatus: state.loadingStatus,
     loadingStatusMessage: state.loadingStatusMessage,
     changePage,
+    nextPage,
+    previousPage,
     changeMaxPage,
-    totalPages
+    totalPages,
   };
 }
