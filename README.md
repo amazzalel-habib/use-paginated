@@ -1,5 +1,6 @@
 # use-paginator
 
+![npm](https://img.shields.io/npm/v/use-paginator)
 [![Build Status](https://travis-ci.org/amazzalel-habib/use-paginator.svg?branch=master)](https://travis-ci.org/amazzalel-habib/use-paginator)
 [![Coverage Status](https://coveralls.io/repos/github/amazzalel-habib/use-paginator/badge.svg?branch=master)](https://coveralls.io/github/amazzalel-habib/use-paginator?branch=master)
 
@@ -28,7 +29,8 @@ interface UsePaginationOptions<T> {
 
 `caching`: default to `true`, to disable or enable caching of the pages, to optimize number of fething requests.  
 
-`defaultPage`: default to 1, is the default page to load in when the component mount. 
+`defaultPage`: default to 1, is the default page to load in when the component mount.
+
 `fetchPage`: is a function that should load the data (from source ...) it should return an object of type `FetchPageResposne<T>` containing the page items and the total number of elements.
 
 ```typescript
