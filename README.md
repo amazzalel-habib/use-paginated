@@ -2,7 +2,7 @@
 
 [![npm](https://img.shields.io/npm/v/use-paginated)](https://www.npmjs.com/package/use-paginated)
 [![Build Status](https://travis-ci.org/amazzalel-habib/use-paginated.svg?branch=master)](https://travis-ci.org/amazzalel-habib/use-paginated)
-[![Coverage Status](https://coveralls.io/repos/github/amazzalel-habib/use-paginated/badge.svg?branch=master)](https://coveralls.io/github/amazzalel-habib/use-paginated?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/amazzalel-habib/use-paginated/badge.svg)](https://coveralls.io/github/amazzalel-habib/use-paginated)
 
 use-paginated library provide a helpful react hook for implementing pagination.
 
