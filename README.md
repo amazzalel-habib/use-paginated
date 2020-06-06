@@ -9,7 +9,7 @@
 This is not a *UI* component, if you want a library for rendering a UI pagination bar you can think of [react-js-pagination
 ](https://www.npmjs.com/package/react-js-pagination) which by the way can be used easily with **use-paginated** library.
 
-This library uses React hooks and local state, so any loaded pages data will be stored localy in the componenet. In the upcoming versions of this library we may add support for storing the data in a redux store...
+This library uses React hooks and local state, so any loaded pages data will be stored localy in the component. In the upcoming versions of this library we may add support for storing the data in a redux store...
 
 ## Install
 
