@@ -70,7 +70,8 @@ export default function usePagination<T>({
   };
   const changeMaxPerPage = (_maxPerPage: number) => {
     dispatch(changeMaxPerPageAction(_maxPerPage));
-    changePage(currentPage);
+    // Load the first page as we don't know how many pages there will be with this changes
+    changePage(1);
   };
   const nextPage = () => {
     if (currentPage + 1 <= totalPages) changePage(currentPage + 1);
