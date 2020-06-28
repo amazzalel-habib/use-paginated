@@ -23,7 +23,7 @@ Very easy to use. Just provide the options to the hook `usePagination` and you w
 function usePagination<T>(options: UsePaginationOptions<T>): UsePaginationProps<T>
 
 interface UsePaginationOptions<T> {
-  fetchPage: (page: number, maxPerPage: number) => Promise<FetchPageResposne<T>> | FetchPageResposne<T>;
+  fetchPage: (page: number, maxPerPage: number) => Promise<FetchPageResponse<T>> | FetchPageResponse<T>;
   maxPerPage?: number;
   caching?: boolean;
   defaultPage?: number;
@@ -36,10 +36,10 @@ interface UsePaginationOptions<T> {
 
 `defaultPage`: default to 1, is the default page to load when the component mounts.
 
-`fetchPage`: is a function that should load the data (from a source...) it should return a promise or simple object of type `FetchPageResposne<T>` containing the page items and the total number of elements.
+`fetchPage`: is a function that should load the data (from a source...) it should return a promise or simple object of type `FetchPageResponse<T>` containing the page items and the total number of elements.
 
 ```typescript
-interface FetchPageResposne<T> {
+interface FetchPageResponse<T> {
   pageItems: T[];
   totalCount: number;
 }
@@ -62,7 +62,7 @@ interface UsePaginationProps<T> {
 
 ```typescript
 import React, { useState } from "react";
-import usePagination, { FetchPageResposne } from "use-paginated";
+import usePagination, { FetchPageResponse } from "use-paginated";
 
 type User = {
   id: number;
@@ -71,7 +71,7 @@ type User = {
   last_name: string;
   avatar: string;
 };
-function adaptFakeData(data: any): FetchPageResposne<User> {
+function adaptFakeData(data: any): FetchPageResponse<User> {
   return {
     pageItems: data.data,
     totalCount: data.total,

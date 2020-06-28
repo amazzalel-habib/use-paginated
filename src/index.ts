@@ -1,9 +1,9 @@
 import usePagination, {
   UsePaginationStatus,
-  FetchPageResposne,
+  FetchPageResponse,
   UsePaginationOptions,
   UsePaginationProps,
 } from './usePagination';
 
-export { UsePaginationProps, FetchPageResposne, UsePaginationOptions, UsePaginationStatus };
+export { UsePaginationProps, FetchPageResponse, UsePaginationOptions, UsePaginationStatus };
 export default usePagination;

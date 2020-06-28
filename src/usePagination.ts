@@ -5,7 +5,7 @@ import { shouldFetchPage } from './utils';
 
 export enum UsePaginationStatus {
   LOADING = 'LOADING',
-  FAILLED = 'FAILLED',
+  FAILED = 'FAILED',
   SUCCESS = 'SUCCESS',
 }
 
@@ -31,12 +31,12 @@ export interface PagesStateType<T> {
   maxPerPage: number;
   caching: boolean;
 }
-export interface FetchPageResposne<T> {
+export interface FetchPageResponse<T> {
   pageItems: T[];
   totalCount: number;
 }
 export interface UsePaginationOptions<T> {
-  fetchPage: (page: number, maxPerPage: number) => Promise<FetchPageResposne<T>> | FetchPageResposne<T>;
+  fetchPage: (page: number, maxPerPage: number) => Promise<FetchPageResponse<T>> | FetchPageResponse<T>;
   maxPerPage?: number;
   caching?: boolean;
   defaultPage?: number;
@@ -85,7 +85,7 @@ export default function usePagination<T>({
     if (shouldFetchPage(caching, currentPageContent, currentLoadingStatus)) {
       (async () => {
         try {
-          const response: FetchPageResposne<T> = await fetchPage(currentPage, maxPerPage);
+          const response: FetchPageResponse<T> = await fetchPage(currentPage, maxPerPage);
           dispatch(loadPageSuccessAction(response.pageItems, response.totalCount));
         } catch (error) {
           dispatch(loadPageFailureAction(error));

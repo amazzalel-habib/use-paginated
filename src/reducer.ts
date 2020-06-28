@@ -54,7 +54,7 @@ export default function usePaginationReducer<T>(
     case LOAD_PAGE_FAILURE:
       return {
         ...state,
-        loadingStatus: UsePaginationStatus.FAILLED,
+        loadingStatus: UsePaginationStatus.FAILED,
         loadingStatusMessage: action.error,
       };
     default:

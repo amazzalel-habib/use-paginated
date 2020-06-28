@@ -1,4 +1,4 @@
-import usePagination, { FetchPageResposne } from '../usePagination';
+import usePagination, { FetchPageResponse } from '../usePagination';
 import { UsePaginationProps, UsePaginationStatus } from '..';
 import { renderHook, act } from '@testing-library/react-hooks';
 
@@ -10,7 +10,7 @@ const data: { [page: number]: T[] } = {
 };
 
 const mockPageFetched = jest.fn(
-  (page: number, maxPerPage: number): Promise<FetchPageResposne<T>> => {
+  (page: number, maxPerPage: number): Promise<FetchPageResponse<T>> => {
     return Promise.resolve({
       pageItems: data[page],
       totalCount: 5,
@@ -196,7 +196,7 @@ describe('use-pagination', () => {
       });
       const hooks = renderHookResult.result.current;
       expect(faillingFetcher).toBeCalledTimes(1);
-      expect(hooks.loadingStatus).toBe(UsePaginationStatus.FAILLED);
+      expect(hooks.loadingStatus).toBe(UsePaginationStatus.FAILED);
     });
   });
 
